@@ -4,13 +4,14 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
+from sqlalchemy.engine import URL
 
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
 from tgbot.handlers.admin import register_admin
-from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.db import DbMiddleware
+from tgbot.models.database.base import Database
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +27,6 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_admin(dp)
     register_user(dp)
-
-    register_echo(dp)
 
 
 async def main():
@@ -45,6 +44,17 @@ async def main():
         storage = MemoryStorage()
 
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
+    db = Database()
+    await db.create_pool(
+        URL(
+            drivername="postgresql+asyncpg",
+            username=config.db.user,
+            password=config.db.password,
+            host=config.db.host,
+            database=config.db.database
+        )
+    )
+
     dp = Dispatcher(bot, storage=storage)
 
     bot['config'] = config

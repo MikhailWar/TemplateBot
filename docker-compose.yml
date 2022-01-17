@@ -1,17 +1,12 @@
 version: '3.3'
 
-
-
-
-
-
 services:
-  db-search:
-    container_name: search-db
+  db:
+    container_name: db
     image: postgres:alpine
     restart: always
     networks:
-      - botglazboga
+      - botnet
     environment:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASS
@@ -24,13 +19,15 @@ services:
     container_name: "${BOT_CONTAINER_NAME:-tg_bot-container}"
     build:
       context: .
+    networks:
+      - botnet
     working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
     volumes:
     - .:/usr/src/app/${BOT_NAME:-tg_bot}
     command: python3 -m bot
     restart: always
     env_file:
-      - ".env.dist"
+      - ".env"
 
 
 networks:
