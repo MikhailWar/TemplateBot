@@ -13,7 +13,18 @@ services:
       POSTGRES_DB: $DB_NAME
     volumes:
     - ./pgdata:/var/lib/postgresql/data
-    -
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: on-failure
+    networks:
+      - botnet
+    volumes:
+      - .data/redis:/var/lib/redis
+
+
+
   bot:
     image: "${BOT_IMAGE_NAME:-tg_bot-image}"
     container_name: "${BOT_CONTAINER_NAME:-tg_bot-container}"
