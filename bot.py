@@ -58,6 +58,7 @@ async def main():
     dp = Dispatcher(bot, storage=storage)
 
     bot['config'] = config
+    bot['pool'] =db.pool
 
     register_all_middlewares(dp)
     register_all_filters(dp)

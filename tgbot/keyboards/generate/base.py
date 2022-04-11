@@ -24,15 +24,15 @@ class GenerateMarkupButtons:
 
         res = []
         c = 0
-        if self.laylout is int:
+        if type(self.laylout) is int:
             keyboards = [[]]
             res = self.insert(keyboards)
-
-        for row in self.laylout:
-            res.append([])
-            for _i in range(row):
-                res[len(res) - 1].append(self.keyboards[c])
-                c += 1
+        else:
+            for row in self.laylout:
+                res.append([])
+                for _i in range(row):
+                    res[len(res) - 1].append(self.keyboards[c])
+                    c += 1
         return res
 
     def get(self):
