@@ -2,3 +2,4 @@ aiogram
 aioredis
 environs~=8.0.0
 sqlalchemy
+asyncpg
