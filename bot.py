@@ -39,7 +39,7 @@ async def main():
     config = load_config(".env")
 
     if config.tg_bot.use_redis:
-        storage = RedisStorage2()
+        storage = RedisStorage2(config.tg_bot.redis_host)
     else:
         storage = MemoryStorage()
 
