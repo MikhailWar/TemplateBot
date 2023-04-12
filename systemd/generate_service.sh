@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 envfile=./env_tgbot
-systemd_file=./tgbot.service
 
 export $(grep -v '^#' $envfile | xargs)
+systemd_file=./${SYSTEMD_FILE_PROJECT}
 
 
 tgbot_service_data="""[Unit]
