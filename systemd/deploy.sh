@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-SYSTEMD_FILE="tgbot.service"
-./generate_service.sh
+envfile='./env_tgbot'
+export $(grep -v '^#' $envfile | xargs)
+
+SYSTEMD_FILE=${SYSTEMD_FILE_PROJECT}
+
+
+
+
 sudo cp "./$SYSTEMD_FILE" /etc/systemd/system/
 sudo sudo systemctl enable $SYSTEMD_FILE
 sudo systemctl start $SYSTEMD_FILE
