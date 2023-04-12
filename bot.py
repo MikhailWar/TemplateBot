@@ -8,8 +8,8 @@ from sqlalchemy.engine import URL
 
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
-from tgbot.handlers.admin import register_admin
 from tgbot.handlers.user import register_user
+
 from tgbot.middlewares.db import DbMiddleware
 from tgbot.models.database.base import Database
 
@@ -25,7 +25,6 @@ def register_all_filters(dp):
 
 
 def register_all_handlers(dp):
-    register_admin(dp)
     register_user(dp)
 
 
@@ -51,7 +50,9 @@ async def main():
             username=config.db.user,
             password=config.db.password,
             host=config.db.host,
-            database=config.db.database
+            database=config.db.database,
+            query={},
+            port=5432
         )
     )
 
