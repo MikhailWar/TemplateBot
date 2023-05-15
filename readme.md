@@ -1,6 +1,6 @@
 To generate a systemd file, you need to write:
 
-<code>make generate_service file=tgbot.service</code>
+<code>make generate_service directory=path file=tgbot.service</code>
 
 To install python modules:
 
