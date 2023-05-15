@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-envfile=./env_tgbot
-
-export $(grep -v '^#' $envfile | xargs)
-systemd_file=./${SYSTEMD_FILE_PROJECT}
-
 
 tgbot_service_data="""[Unit]
 Description=TelegramBot
@@ -12,8 +7,8 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=${WORKING_DIRECTORY}
-ExecStart=${WORKING_DIRECTORY}/venv/bin/${PYTHON_VERSION} ${WORKING_DIRECTORY}/${RUN_FILE}
+WorkingDirectory=${directory}
+ExecStart=${directory}/venv/bin/${python} ${directory}/bot.py
 Environment="PYTHONIOENCODING=UTF8"
 Restart=always
 
@@ -21,4 +16,4 @@ Restart=always
 WantedBy=multi-user.target
 """
 
-echo "$tgbot_service_data" > $systemd_file;
+echo "$tgbot_service_data" > ${file};

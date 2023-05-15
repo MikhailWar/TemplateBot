@@ -1,4 +1,0 @@
-WORKING_DIRECTORY=/root/TemplateBot
-PYTHON_VERSION=python3
-RUN_FILE=bot.py
-SYSTEMD_FILE_PROJECT=tgbot.service
